@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/estilo.css') }}"/>
+{% endblock %}
+
+{% block body %}    
+    <div class="col-lg-6 box-form">
+    <h1>New post</h1>
+            {{form_start(form)}}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+    </div>
+{% endblock %}

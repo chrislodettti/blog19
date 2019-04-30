@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% form_theme form _self %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/estilo.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+            {% if app.user.role == "ROLE_ADMIN" %}
+    <div class="col-lg-4 box-form">
+        <h2>Edit user</h2>
+        {{ form_start(form)}}
+        {{form_widget(form) }}
+           {{form_end(form) }}           
+       {{form_errors(form)}}        
+    </div>
+  {% endif %}
+ {% endif %}
+{% endblock %}
+
+{% block form_errors %}
+{% if errors|length >0 %}
+    <ul>
+        {% for error in errors %}
+        <li class="error-message">{{error.message}}</li>
+ {% endfor %}
+        </ul>
+{%endif%}    
+{% endblock form_errors %}

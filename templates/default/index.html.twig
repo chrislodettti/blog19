@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/estilo.css') }}"/>
+{% endblock %}
+{% block body %}   
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Blog </h1>
+            
+        </div>
+            {% if app.user %}
+        <div class="jumbotron">
+            <h3>{{ app.user.username }} posts</h3>
+            <ul>
+                {% for post in posts %}
+                    {% if post.user_id == app.user %}
+                        <p><a href="/post/{{ post.id }}">{{ post.title }}</a> - {{ post.create_date|date('d-m-Y') }} - <a href="/post/{{ post.id }}/editpost">Edit</a>
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <h3>Other posts</h3>
+            <ul>
+                {% for post in posts %}
+                    {% if post.user_id != app.user %}
+                        <p><a href="/post/{{ post.id }}">{{ post.title }}</a> - {{ post.create_date|date('d-m-Y') }} - 
+                            {% for user in users %}
+                                {% if post.user_id == user %}
+                                    {{ user.username }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            
+            
+        </div>
+        {% else %}
+         <div class="jumbotron">
+        <h3>All posts</h3>
+        <ul>
+                {% for post in posts %}
+                    
+                        <p><a href="/post/{{ post.id }}">{{ post.title }}</a> - {{ post.create_date|date('d-m-Y') }} - 
+                            {% for user in users %}
+                                {% if post.user_id == user %}
+                                    {{ user.username }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}

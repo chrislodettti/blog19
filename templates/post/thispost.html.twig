@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/estilo.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <!-- check is a flag variable, if locates the post, will print it -->
+    {% set check = 0 %}
+    <div class="container">
+        <div class="jumbotron">
+    {% for post in posts %}
+        {% if post.id == thispost %}
+                {% set check = 1 %}
+        {% endif %}
+    {% endfor %}
+    {% if check == 1 %}
+        {% for post in posts %}
+            {% if post.id == thispost %}
+                <h1>{{post.title}}</h1>
+                <h3>Date: <i>{{ post.create_date|date('d-m-Y') }}</i></h3>
+                <h3>User: <i>{% for user in users %}
+                                {% if post.user_id == user %}
+                                    {{ user.username }}
+                                {% endif %}
+                                {% endfor %}</i></h3>
+                <hr>
+                <p>{{post.content | raw }}</p>
+            <!-- comment section -->
+            <hr>
+            <h3><i>Comments</i></h3>
+            {% for comment in comments %}
+                {% if comment.post_id == post %}
+                    <hr>
+                    <p>                    
+                    {% for user in users %}
+                        {% if comment.user_id == user %}
+                            {{ user.username }}
+                        {% endif %}
+                    {% endfor %}
+                    - {{ comment.create_date|date('d-m-Y H:m') }}<br>
+                    {{comment.comment | raw }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+            {% if app.user %}
+                <p><a href="/post/{{ post.id }}/addcomment">Add comment</a></p>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h1>Post not located in archive.</h1>
+    {% endif %}
+        </div>
+    </div>
+{% endblock %}

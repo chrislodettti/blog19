@@ -1,0 +1,39 @@
+login:
+    path: /login
+    controller: App\Controller\UserController::login
+    
+logout:
+    path: /logout
+    controller: App\Controller\UserController::logout
+newpost:
+    path: /newpost
+    controller: App\Controller\PostController::newPost
+newcomment:
+    path:       /post/{thispost}/addcomment
+    controller: App\Controller\CommentController::newComment
+#Api Routes
+api_new_user:
+    path: /api/user
+    controller: App\Controller\Api\UserController::newUSer
+    methods: [POST]
+
+api_list_user:
+    path: /api/user/{username}
+    controller: App\Controller\Api\UserController::listUser
+    methods: [GET]
+    defaults:
+        username: null
+api_edit_user:
+    path: /api/user/{id}
+    controller: App\Controller\Api\UserController::editUser
+    methods: [PUT]
+    defaults:
+        username: null
+api_delete_user:
+    path: /api/user/{id}
+    controller: App\Controller\Api\UserController::deleteUser
+    methods: [DELETE]
+    defaults:
+        username: null
+
+

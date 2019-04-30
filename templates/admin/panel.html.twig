@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/estilo.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+            {% if app.user.role == "ROLE_ADMIN" %}
+              <div class="panel panel-primary">
+                <div class="panel-heading">Panel Principal</div>
+                <div class="panel-body"><a href="/adminpanel/users">Info users</a></div>
+                <div class="panel-body"><a href="/adminpanel/posts">Info posts</a></div>
+              </div>
+         {% endif %}    
+    {% endif %} 
+{% endblock %}

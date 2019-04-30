@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/estilo.css') }}"/>
+{% endblock %}
+{% block body %}
+  <!-- HEADER -->
+    <div class="container">
+        <header class="jumbotron">
+          <h1>Blog{{name}}</h1>
+
+            <section>
+                <p>Page of all the posts of the blog</p>  
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+         
+
+           {% for post in posts %}
+            <section class="jumbotron">
+            <h3>Entry</h3>
+               <li>{{ post }}</li>
+            </section>
+           {% endfor %}
+
+    <p><a href="{{path("new_post")}}">New Post...</a></p>
+
+    <!-- FOOTER  -->
+    <div class="container">
+      <footer class="footer">
+        <p class="alert-info">Blog by <a href="">blog daw</a></p>
+        <p class="newline" id="return">Return to <a href="{{path("homeaction")}}">home</a></p>
+      </footer>
+    </div>
+
+      
+
+{% endblock %}
